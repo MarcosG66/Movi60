@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Movi60",
+    "slug": "movi60",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#F4F7FA",
+    "icon": "./src/assets/logo.png",
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/logo.png",
+        "backgroundColor": "#12325B"
+      },
+      "package": "com.movi60.app",
+      "versionCode": 1
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.movi60.app",
+      "buildNumber": "1"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}

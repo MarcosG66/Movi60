@@ -1,0 +1,26 @@
+# Dependências
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+
+# Variáveis de ambiente
+.env
+.env.*
+!.env.example
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# Chaves de conta de servico do Firebase (nunca versionar)
+*firebase-adminsdk*.json
+
+# Backups locais
+*.backup*

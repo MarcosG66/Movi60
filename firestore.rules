@@ -1,0 +1,155 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function profileExists(uid) {
+      return exists(/databases/$(database)/documents/usuarios/$(uid));
+    }
+
+    function roleIs(role) {
+      return signedIn()
+        && profileExists(request.auth.uid)
+        && get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.role == role;
+    }
+
+    function isAdmin() {
+      return roleIs("admin");
+    }
+
+    function isInstructor() {
+      return roleIs("instructor");
+    }
+
+    function isStudent() {
+      return roleIs("student");
+    }
+
+    match /usuarios/{userId} {
+      allow create: if (
+        signedIn()
+        && request.auth.uid == userId
+        && request.resource.data.role == "student"
+      ) || (
+        isAdmin()
+        && request.resource.data.role in ["student", "instructor"]
+      );
+
+      allow read: if signedIn() && (
+        request.auth.uid == userId
+        || isAdmin()
+        || (isInstructor()
+          && resource.data.role == "student"
+          && resource.data.instructorId == request.auth.uid)
+      );
+
+      allow update: if signedIn() && (
+        (
+          request.auth.uid == userId
+          && request.resource.data.role == resource.data.role
+          && request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(["name", "birthDate"])
+        )
+        || (
+          // Registro de acesso feito pelo próprio usuário ao entrar no app.
+          request.auth.uid == userId
+          && request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(["ultimoLogin", "totalLogins"])
+          && request.resource.data.ultimoLogin == request.time
+        )
+        || (
+          isAdmin()
+          && request.resource.data.role in ["student", "instructor"]
+        )
+      );
+
+      allow delete: if isAdmin() && resource.data.role != "admin";
+    }
+
+    match /exercicios/{exerciseId} {
+      allow read: if signedIn();
+      allow create, update, delete: if isInstructor() || isAdmin();
+    }
+
+    match /treinos/{workoutId} {
+      allow read: if signedIn() && (
+        isAdmin()
+        || (isInstructor() && resource.data.professionalId == request.auth.uid)
+        || (isStudent() && resource.data.studentId == request.auth.uid)
+      );
+
+      allow create: if (
+        // O admin pode criar o treino no nome dele ou do professor do aluno.
+        isAdmin()
+        && request.resource.data.professionalId is string
+        && exists(/databases/$(database)/documents/usuarios/$(request.resource.data.studentId))
+        && get(/databases/$(database)/documents/usuarios/$(request.resource.data.studentId)).data.role == "student"
+      ) || (
+        isInstructor()
+        && request.resource.data.professionalId == request.auth.uid
+        && exists(/databases/$(database)/documents/usuarios/$(request.resource.data.studentId))
+        && get(/databases/$(database)/documents/usuarios/$(request.resource.data.studentId)).data.role == "student"
+        && get(/databases/$(database)/documents/usuarios/$(request.resource.data.studentId)).data.instructorId == request.auth.uid
+      );
+
+      allow update: if isAdmin()
+        || (isInstructor()
+          && resource.data.professionalId == request.auth.uid
+          && request.resource.data.professionalId == request.auth.uid);
+
+      allow delete: if isAdmin()
+        || (isInstructor() && resource.data.professionalId == request.auth.uid);
+    }
+
+    match /historico/{recordId} {
+      allow read: if signedIn() && (
+        isAdmin()
+        || (isStudent() && resource.data.userId == request.auth.uid)
+        || (isInstructor() && resource.data.instructorId == request.auth.uid)
+      );
+
+      allow create: if isStudent()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.instructorId
+          == get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.instructorId;
+
+      allow update, delete: if isAdmin();
+    }
+
+    // Treinos concluídos: um registro quando o aluno termina todos os exercícios do dia.
+    match /treinos_concluidos/{recordId} {
+      allow read: if signedIn() && (
+        isAdmin()
+        || (isStudent() && resource.data.userId == request.auth.uid)
+        || (isInstructor() && resource.data.instructorId == request.auth.uid)
+      );
+
+      allow create: if isStudent()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.instructorId
+          == get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.instructorId;
+
+      allow update, delete: if isAdmin();
+    }
+
+    // Marcação de contas excluídas pelo admin. O próprio usuário lê e apaga ao
+    // tentar entrar, e então remove a própria credencial do Firebase Auth.
+    match /usuarios_removidos/{userId} {
+      allow create: if isAdmin()
+        && profileExists(userId)
+        && get(/databases/$(database)/documents/usuarios/$(userId)).data.role != "admin";
+      allow read, delete: if signedIn() && (request.auth.uid == userId || isAdmin());
+    }
+
+    match /preferencias/{userId} {
+      allow read, write: if signedIn()
+        && request.auth.uid == userId;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
