@@ -1,37 +1,37 @@
-# Movi60 — protótipo funcional em React Native + Expo
+# Movi60 — Functional Prototype in React Native + Expo
 
-Projeto acadêmico de extensão da disciplina Desenvolvimento de Plataforma Móvel (Unifor). Construído com base no protótipo fornecido em Figma Make e nas Etapas 1 e 2.
+Academic extension project for the Mobile Platform Development course (Unifor). Built based on the prototype provided in Figma Make and on Stages 1 and 2.
 
-## O que já funciona localmente
+## What already works locally
 
-- Fluxo de apresentação, login, cadastro e recuperação de senha demonstrativa.
-- Perfis de aluno, professor e administrador, com páginas e navegação próprias.
-- Cinco abas do aluno: **Início, Treino, Evolução, Agenda, Perfil**.
-- Treino do dia, detalhes, execução passo a passo, registro de séries, repetições, carga e observações, conclusão e histórico.
-- Indicadores de evolução calculados a partir do histórico, incluindo gráfico semanal.
-- Assistente Movi60 com **respostas pré-programadas locais**. **Não é uma IA conectada**.
-- Acessibilidade: escala do texto, ícones, botões ampliados, alto contraste e escolha de fonte.
-- Professor: busca e consulta dos alunos, cadastro, edição, consulta e exclusão de exercícios e treinos.
-- Administrador: consulta de usuários, edição de dados e papéis, exclusão de usuários criados no próprio dispositivo, além de exercício/treino.
-- Todas as alterações ficam no **AsyncStorage** do dispositivo. Dados de treino vinculados a um aluno são exibidos apenas para esse aluno na navegação de estudante. Confirmação antes das exclusões.
+- Onboarding, login, sign-up, and demo password recovery flow.
+- Student, instructor, and administrator profiles, each with its own pages and navigation.
+- Five student tabs: **Home, Workout, Progress, Schedule, Profile**.
+- Workout of the day, details, step-by-step execution, logging of sets, reps, load, and notes, completion, and history.
+- Progress indicators calculated from workout history, including a weekly chart.
+- Movi60 Assistant with **local pre-programmed responses**. **It is not a connected AI**.
+- Accessibility: text scaling, icons, enlarged buttons, high contrast, and font selection.
+- Instructor: search and view students, create, edit, view, and delete exercises and workouts.
+- Administrator: view users, edit data and roles, delete users created on the device itself, as well as exercises/workouts.
+- All changes are stored in the device's **AsyncStorage**. Workout data linked to a student is displayed only to that student in the student navigation. Confirmation prompt before deletions.
 
-Os dados são apenas para demonstração, sem autenticação ou controle de acesso real no servidor. **Não usar dados sensíveis ou senhas pessoais.**
+The data is for demonstration purposes only, with no real server-side authentication or access control. **Do not use sensitive data or personal passwords.**
 
-## Acessos de teste
+## Test credentials
 
-| Tipo | E-mail | Senha |
-|------|--------|-------|
-| Aluno | ana@movi60.com | 123456 |
-| Professor | professor@movi60.com | 123456 |
-| Administrador | admin@movi60.com | 123456 |
+| Role | Email | Password |
+|------|-------|----------|
+| Student | ana@movi60.com | 123456 |
+| Instructor | professor@movi60.com | 123456 |
+| Administrator | admin@movi60.com | 123456 |
 
-Há botões de acesso rápido na tela inicial. Bruno Dias e Lúcia Costa são usuários de exemplo para a lista administrativa.
+Quick-access buttons are available on the initial screen. Bruno Dias and Lúcia Costa are sample users for the administrative list.
 
-**Primeiro login como aluno:** a tela de acessibilidade aparece como configuração inicial. Pressione **Salvar e começar** ou volte para acessar as abas.
+**First login as a student:** the accessibility screen appears as an initial setup. Press **Save and start** or go back to access the tabs.
 
-## Como executar como projeto Expo no computador
+## How to run as an Expo project on your computer
 
-Requisitos: Node.js 22 (recomendado para Expo SDK 57), celular com Expo Go ou simulador, acesso à internet para a primeira instalação.
+Requirements: Node.js 22 (recommended for Expo SDK 57), a smartphone with Expo Go or an emulator, and internet access for the initial installation.
 
 ```bash
 npm install
@@ -39,50 +39,50 @@ npx expo install --fix
 npx expo start
 ```
 
-Depois, escaneie o QR Code pelo Expo Go (Android) ou câmera/Expo Go (iOS). Também é possível abrir a visualização web pelo terminal ou `npx expo start --web`.
+Then, scan the QR Code using Expo Go (Android) or the Camera/Expo Go (iOS). You can also open the web preview via the terminal or by running `npx expo start --web`.
 
-O código principal fica em `src/App.jsx`, as telas reutilizam os componentes de `src/components`, o tema está em `src/styles/theme.js` e a camada de dados local está em `src/services/local.js`.
+The main code is located in `src/App.jsx`, the screens reuse components from `src/components`, the theme is in `src/styles/theme.js`, and the local data layer is in `src/services/local.js`.
 
-## Como executar no Expo Snack (sem instalar Node.js)
+## How to run on Expo Snack (without installing Node.js)
 
-Um **App.js de arquivo único**, equivalente a este projeto, acompanha a entrega separadamente, com nome `Movi60_Snack_App.js`.
+A **single-file App.js**, equivalent to this project, is included separately in the delivery under the name `Movi60_Snack_App.js`.
 
-1. Acesse **https://snack.expo.dev** e crie um Snack vazio.
-2. Se houver seletor de SDK, escolha **Expo SDK 57**, que corresponde ao projeto recebido no ZIP Figma. Caso a versão não apareça, use a opção mais próxima suportada e veja se as bibliotecas são compatíveis.
-3. Abra `Movi60_Snack_App.js` no computador e **copie todo o conteúdo**.
-4. No Snack, abra `App.js`, **apague o exemplo** e **cole o código**.
-5. Em **Dependencies**, adicione (se o Snack ainda não tiver resolvido automaticamente):
+1. Go to **https://snack.expo.dev** and create an empty Snack.
+2. If an SDK selector is available, choose **Expo SDK 57**, which matches the project received in the Figma ZIP. If that version is not listed, use the closest supported option and check if the libraries are compatible.
+3. Open `Movi60_Snack_App.js` on your computer and **copy the entire content**.
+4. In Snack, open `App.js`, **delete the sample code**, and **paste the copied code**.
+5. Under **Dependencies**, add (if Snack hasn't resolved them automatically):
    - `@react-native-async-storage/async-storage`
    - `lucide-react-native`
    - `react-native-svg`
-6. Escolha a prévia **Android**, **iOS** ou **Web** e abra o app. Para testar no celular, instale **Expo Go** e leia o QR Code do Snack.
-7. Para salvar o projeto no Snack, entre com uma conta Expo e clique em **Save**.
+6. Select the **Android**, **iOS**, or **Web** preview and open the app. To test on a smartphone, install **Expo Go** and scan the Snack QR Code.
+7. To save the project on Snack, sign in with an Expo account and click **Save**.
 
-A versão de arquivo único tem os mesmos fluxos e persiste os dados localmente no ambiente de execução. A persistência em uma prévia web pode ser diferente da persistência no Expo Go do celular.
+The single-file version contains the same flows and persists data locally within the runtime environment. Persistence in a web preview may behave differently from persistence in Expo Go on a mobile device.
 
-## O que não foi integrado, propositalmente
+## What was intentionally not integrated
 
-- **Firebase Authentication**: login e cadastro locais, com credenciais de demonstração.
-- **Firebase Firestore**: coleções provisoriamente substituídas por estado React + AsyncStorage.
-- **Gemini / IA**: o assistente responde com regras simples e instruções dos exercícios disponíveis. Nenhuma chamada a serviço externo é feita.
-- **Fotos definitivas dos exercícios**: o modelo visual mantém o placeholder ilustrado do Figma. No CRUD, é possível informar uma URL de imagem, quando houver internet.
+- **Firebase Authentication**: local login and sign-up using demo credentials.
+- **Firebase Firestore**: collections temporarily replaced by React state + AsyncStorage.
+- **Gemini / AI**: the assistant responds using simple rules and instructions from the available exercises. No external service calls are made.
+- **Final exercise photos**: the visual model keeps the illustrated placeholder from Figma. In the CRUD, it is possible to provide an image URL when an internet connection is available.
 
-**Importante:** o armazenamento de credenciais locais é exclusivamente didático. Ele não é seguro para ambiente de produção, e o controle de permissões é somente na interface. Para implantação real, usar o Firebase Auth, regras do Firestore e backend para a chamada de IA.
+**Important:** local credential storage is strictly for educational purposes. It is not secure for a production environment, and permission control is handled solely on the UI level. For a real deployment, use Firebase Auth, Firestore security rules, and a backend for AI requests.
 
-## Possíveis extensões
+## Possible extensions
 
-Na integração futura, substituir as funções de `src/services/local.js` por Auth/Firestore, migrar os registros locais para coleções `usuarios`, `exercicios`, `treinos`, `treino_exercicios`, `historico` e `agenda`, e trocar `src/services/assistant.js` por um serviço de IA protegido via backend.
+In a future integration, replace the functions in `src/services/local.js` with Auth/Firestore, migrate local records to `usuarios`, `exercicios`, `treinos`, `treino_exercicios`, `historico`, and `agenda` collections, and replace `src/services/assistant.js` with a backend-protected AI service.
 
-## Verificação desta entrega
+## Verification of this delivery
 
-O código foi conferido com parser JavaScript/JSX e as funções de autenticação local foram validadas em testes automatizados. **Não foi possível executar um build Expo Go real neste ambiente**; por isso, eventuais diferenças específicas de versão da plataforma devem ser verificadas no Snack ou no aparelho.
+The code was checked with a JavaScript/JSX parser, and the local authentication functions were validated through automated tests. **It was not possible to run a real Expo Go build in this environment**; therefore, any platform-specific version differences should be verified on Snack or on a physical device.
 
 
-## Separação de perfis — atualização
+## Role separation — update
 
-- **Aluno:** consulta e registra seus próprios treinos. Novos cadastros públicos são de aluno.
-- **Professor:** gerencia exercícios, consulta somente alunos vinculados a si e cria/edita/exclui somente seus treinos. Apenas alunos vinculados podem ser selecionados no formulário de treino.
-- **Administrador:** gerencia usuários, perfis e a atribuição de professores aos alunos. Seu painel mostra indicadores globais; os CRUDs de treino e exercício não aparecem na navegação administrativa.
-- **Dados locais:** o vínculo é o campo `instructorId` no usuário/aluno e `professionalId` no treino. Permissões são de demonstração, não são segurança real; aplicar regras do Firebase na próxima etapa.
-- **Cadastro pelo administrador:** escolha perfil e opcionalmente professor; senha provisória `123456` apenas para testes.
-- Os usuários de demonstração Ana e Bruno estão vinculados ao professor Carlos por padrão; a administradora pode mudar os vínculos.
+- **Student:** views and logs their own workouts. New public sign-ups default to the student role.
+- **Instructor:** manages exercises, views only students assigned to them, and creates/edits/deletes only their own workouts. Only assigned students can be selected in the workout form.
+- **Administrator:** manages users, roles, and the assignment of instructors to students. Their dashboard displays global metrics; workout and exercise CRUDs do not appear in the administrative navigation.
+- **Local data:** the link is stored via the `instructorId` field on the user/student and `professionalId` on the workout. Permissions are for demonstration only and do not represent real security; Firebase rules should be applied in the next stage.
+- **Admin user creation:** choose a role and optionally an instructor; temporary password `123456` is for testing only.
+- Demo users Ana and Bruno are assigned to instructor Carlos by default; the administrator can change these assignments.
