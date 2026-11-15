@@ -1,405 +1,686 @@
-Movi60 — Functional Prototype in React Native + Expo
+# Movi60 — Accessible Fitness Management App
 
-Academic extension project developed for the Mobile Platform Development course at Unifor.
+**Movi60** is a mobile application developed with **React Native and Expo**, designed to support physical activity, workout management, and accessibility for adults aged 60 and older.
 
-Built based on the prototype provided in Figma Make and on Stages 1 and 2 of the project.
+The project was developed as an academic extension initiative for the **Mobile Platform Development** course at the **University of Fortaleza (Unifor)**, Brazil.
+
+Movi60 provides dedicated interfaces for students, instructors, and administrators, combining workout management, progress tracking, accessibility features, Firebase integration, and an AI-powered assistant.
+
+The application was initially designed using **Figma Make** and progressively developed into a functional prototype.
 
 ---
 
-Features
+## 1. Project Overview
 
-Authentication and Onboarding
+### Purpose
 
-- Onboarding flow.
-- Login and sign-up.
-- Demo password recovery.
-- Quick-access buttons for test accounts.
-- Three user roles: Student, Instructor, and Administrator.
+Movi60 aims to make fitness applications more accessible to older adults by providing an intuitive interface for managing and following physical activities.
 
-Student
+The application addresses common challenges such as:
 
-The student interface contains five main tabs:
+- Difficulty understanding exercise instructions.
+- Limited accessibility in conventional fitness applications.
+- Difficulty organizing workout schedules.
+- Lack of accessible workout progress tracking.
+- Difficulty communicating exercise-related questions.
+- Complex interfaces with small buttons and text.
 
-Tab| Features
-Home| Dashboard and workout of the day
-Workout| Workout details, execution, and history
-Progress| Progress indicators and weekly chart
-Schedule| Student schedule
-Profile| Personal information and accessibility settings
+### Target Audience
 
-Workout functionality:
+The primary audience consists of adults aged 60 and older who participate in or intend to participate in physical activities at gyms, fitness centers, and community wellness programs.
+
+The application also supports fitness instructors and administrators responsible for managing students and their workout routines.
+
+---
+
+## 2. Technologies
+
+| Technology | Purpose |
+|---|---|
+| React Native | Cross-platform mobile development |
+| Expo | Development environment and application execution |
+| JavaScript / JSX | Application logic and interface components |
+| Firebase Authentication | User authentication |
+| Cloud Firestore | Cloud database and data persistence |
+| Firebase Security Rules | Database access control |
+| AsyncStorage | Local application data and preferences |
+| Cloudflare AI | AI assistant integration in the latest development |
+| Lucide React Native | Interface icons |
+| React Native SVG | SVG rendering |
+| Figma Make | Initial interface prototyping |
+
+### Development Environment
+
+- Node.js
+- npm
+- Expo CLI
+- Visual Studio Code
+- Expo Go
+- Git and GitHub
+
+The audited project revision uses **Expo SDK 58**.
+
+The exact Node.js and dependency requirements should be checked against the current `package.json` before installation.
+
+---
+
+## 3. Application Features
+
+### 3.1 Authentication
+
+Movi60 provides an authentication flow with:
+
+- User login.
+- User registration.
+- Password recovery interface.
+- Role-based navigation.
+- User session management.
+- Firebase Authentication integration.
+
+New users registered through the public sign-up interface receive the **Student** role by default.
+
+The application supports three roles:
+
+1. Student
+2. Instructor
+3. Administrator
+
+Each role has a dedicated interface and access to different features.
+
+### 3.2 Student Features
+
+Students can access five main navigation tabs.
+
+| Tab | Description |
+|---|---|
+| Home | Dashboard and workout of the day |
+| Workout | Assigned workouts and exercise execution |
+| Progress | Workout history and progress indicators |
+| Schedule | Scheduled activities |
+| Profile | Personal information and accessibility preferences |
+
+#### Workout Management
+
+Students can:
 
 - View assigned workouts.
-- Follow step-by-step exercise instructions.
-- Log sets, repetitions, loads, and notes.
+- Access exercise details.
+- Read step-by-step exercise instructions.
+- View exercise illustrations or images.
+- Record completed sets.
+- Record repetitions and loads.
+- Add workout notes.
+- Mark exercises as completed.
 - Complete workouts.
-- Access workout history.
-- View progress indicators calculated from workout history.
+- Review previous workout sessions.
 
-Workout information linked to a student is displayed only to that student within the student navigation.
+Workout information is associated with the corresponding student.
 
-Instructor
+#### Progress Tracking
 
-- Search and view assigned students.
-- Create, edit, view, and delete exercises.
-- Create, edit, view, and delete workouts.
-- Manage only workouts created by the instructor.
-- Assign workouts only to students linked to the instructor.
+The Progress section provides indicators calculated from recorded workout activity.
 
-Administrator
+Features include:
 
-- View registered users.
-- Create users and select their roles.
-- Edit user information and roles.
-- Assign instructors to students.
-- Delete users created locally on the device.
-- View global dashboard metrics.
+- Workout completion history.
+- Weekly activity visualization.
+- Progress indicators.
+- Historical workout information.
 
-Workout and exercise CRUD operations are not available in the administrator navigation.
+These indicators help students monitor their activity over time.
 
-Movi60 Assistant
+### 3.3 Instructor Features
 
-The prototype includes an assistant with locally programmed responses.
+Instructors have access to tools for managing students, exercises, and workouts.
 
-- Answers predefined questions.
-- Provides guidance based on available exercises.
-- Uses simple rules and instructions.
+#### Student Management
 
-Note: The assistant is not connected to an external AI service in this version.
+Instructors can:
 
-Accessibility
+- Search for students.
+- View students assigned to them.
+- Access relevant student information.
+- Select assigned students when creating workouts.
 
-The application includes:
+Students outside an instructor's assignment scope should not be available for workout assignment.
 
-- Text scaling.
-- Adjustable icon sizes.
-- Enlarged buttons.
-- High-contrast mode.
+#### Exercise CRUD
+
+The application provides CRUD operations for exercises:
+
+- **Create:** Register exercises.
+- **Read:** View exercise information.
+- **Update:** Modify existing exercises.
+- **Delete:** Remove exercises with confirmation.
+
+Exercise information may include:
+
+- Name.
+- Description.
+- Muscle group.
+- Instructions.
+- Image.
+- Additional notes or precautions.
+
+#### Workout CRUD
+
+Instructors can:
+
+- Create workouts.
+- View existing workouts.
+- Edit workout information.
+- Delete workouts.
+- Associate workouts with assigned students.
+- Select exercises for each workout.
+- Configure sets, repetitions, and additional instructions.
+
+Workout ownership is associated with the responsible instructor.
+
+### 3.4 Administrator Features
+
+Administrators have a dedicated management interface.
+
+Available functionality includes:
+
+- Viewing registered users.
+- Creating users.
+- Editing user information.
+- Managing user roles.
+- Assigning instructors to students.
+- Removing users when permitted.
+- Viewing global application metrics.
+
+The administrative interface focuses on user management and instructor-student relationships.
+
+**Exercise and workout CRUD operations belong to the instructor interface and are not included in the current administrator navigation.**
+
+---
+
+## 4. AI Assistant
+
+Movi60 includes an AI assistant intended to help students understand exercise instructions and workout-related information.
+
+### Purpose
+
+The assistant provides accessible explanations about physical activities.
+
+Examples of supported questions include:
+
+- How do I perform this exercise?
+- Can you explain this movement more simply?
+- What should I pay attention to during this exercise?
+- What is the purpose of this exercise?
+- Can you explain the instructions step by step?
+
+### AI Integration
+
+The latest development work introduced integration with an AI service through **Cloudflare**.
+
+The assistant is designed to:
+
+- Receive questions from the user.
+- Process the question using an AI service.
+- Return a natural-language response.
+- Provide explanations related to exercises.
+- Support accessible communication.
+
+The application may use locally programmed responses as a fallback when the external AI service is unavailable, depending on the installed revision.
+
+### Integration Status
+
+An earlier audited revision used Firebase AI Logic and Gemini. Subsequent development introduced Cloudflare AI.
+
+The final provider configuration and successful execution on physical devices must be verified against the latest source code.
+
+The application does not require continuous voice conversation as part of its core assistant functionality.
+
+### AI Limitations
+
+The assistant is intended for educational and informational purposes.
+
+It does not replace:
+
+- Fitness instructors.
+- Healthcare professionals.
+- Medical diagnoses.
+- Personalized medical recommendations.
+
+AI-generated responses should be treated as supplementary information.
+
+---
+
+## 5. Accessibility
+
+Accessibility is a central component of Movi60.
+
+The application provides settings intended to improve usability for older adults.
+
+### Available Settings
+
+- Adjustable text size.
+- Adjustable icon size.
+- Enlarged interactive buttons.
+- High-contrast interface.
 - Font selection.
+- Accessible navigation elements.
 
-On the first student login, the accessibility screen appears as an initial setup.
+### Initial Accessibility Setup
 
-Select Save and start or return to access the main tabs.
+On the first student login, the application presents an accessibility configuration screen.
 
----
+Students can customize the interface before accessing the main application.
 
-Technologies
+The selected preferences are intended to remain available during subsequent usage.
 
-Technology| Purpose
-React Native| Mobile application development
-Expo| Development and execution environment
-JavaScript / JSX| Application logic and components
-AsyncStorage| Local data persistence
-Lucide React Native| Interface icons
-React Native SVG| SVG rendering
+### Design Principles
 
-The application uses local state and AsyncStorage instead of a remote database.
+The interface prioritizes:
 
----
-
-Test Credentials
-
-Role| Email| Password
-Student| "ana@movi60.com"| "123456"
-Instructor| "professor@movi60.com"| "123456"
-Administrator| "admin@movi60.com"| "123456"
-
-Quick-access buttons are available on the initial screen.
-
-Additional demo users:
-
-- Bruno Dias
-- Lúcia Costa
-
-Ana and Bruno are assigned to instructor Carlos by default. The administrator can modify these assignments.
-
-New users created through public sign-up automatically receive the Student role.
-
-When creating users through the administrator interface, a role and optionally an instructor can be selected.
-
-The temporary password "123456" is used exclusively for demonstration purposes.
+- Clear visual hierarchy.
+- Readable typography.
+- Large touch targets.
+- Simple navigation.
+- Reduced visual complexity.
+- Consistent interface elements.
+- Understandable instructions.
 
 ---
 
-Running Locally
+## 6. Application Architecture
 
-Requirements
+Movi60 uses a component-based architecture built with React Native.
 
-- Node.js 22 (recommended for Expo SDK 57).
-- npm.
-- Expo Go on a smartphone or an Android/iOS emulator.
-- Internet connection for initial dependency installation.
+The application separates interface components, navigation logic, styling, and data services.
 
-Installation
+### Main Components
 
-Clone the repository:
+| Component | Responsibility |
+|---|---|
+| Application entry point | Initializes the application |
+| App screens | Displays application functionality |
+| Navigation logic | Controls screen transitions and role-based navigation |
+| Reusable components | Provides shared interface elements |
+| Theme | Defines application colors, typography, and styles |
+| Firebase services | Handles authentication and database operations |
+| Assistant service | Processes AI assistant requests |
+| Local storage | Stores supported local data and preferences |
 
-git clone https://github.com/MarcosG66/Movi60.git
+### Navigation
 
-Navigate to the project directory:
+The application uses **state-based navigation**, rather than React Navigation.
 
-cd Movi60
+Navigation is controlled through application state and conditional rendering.
 
-Install dependencies:
+The navigation structure distinguishes between:
 
-npm install
+- Authentication screens.
+- Student screens.
+- Instructor screens.
+- Administrator screens.
+- Modal interfaces.
+- Accessibility configuration.
 
-Fix Expo dependency versions if necessary:
+Different navigation options are displayed according to the authenticated user's role.
 
-npx expo install --fix
+### Architecture Decisions
 
-Start the development server:
+**State-based navigation**
 
-npx expo start
+Selected to support the application's existing screen structure and maintain direct control over transitions.
 
-Running on a Smartphone
+**Reusable components**
 
-1. Install Expo Go.
-2. Connect the smartphone and computer to the same network.
-3. Run "npx expo start".
-4. Scan the displayed QR Code.
-5. Open the application in Expo Go.
+Reduce duplicated interface code and help maintain visual consistency.
 
-Running on Web
+**Centralized styling**
 
-Use:
+The audited revision uses `src/styles/theme.js` as the primary source for React Native styles.
 
-npx expo start --web
+**Service separation**
 
-The application can then be accessed through the local web preview.
-
----
-
-Running on Expo Snack
-
-A standalone version of the application is provided as:
-
-"Movi60_Snack_App.js"
-
-This file contains the application flows in a single file.
-
-Instructions
-
-1. Access "Expo Snack" (https://snack.expo.dev).
-2. Create an empty Snack project.
-3. Select Expo SDK 57, if available.
-4. Open "Movi60_Snack_App.js".
-5. Copy its entire content.
-6. Replace the default "App.js" content with the copied code.
-7. Add the required dependencies.
-8. Select Android, iOS, or Web preview.
-9. Run the application.
-
-Dependencies
-
-@react-native-async-storage/async-storage
-lucide-react-native
-react-native-svg
-
-If SDK 57 is unavailable, select the closest supported version and verify dependency compatibility.
-
-To test on a smartphone, scan the Snack QR Code using Expo Go.
-
-To save the project, sign in with an Expo account and select Save.
-
-Note: Local persistence in the web preview may behave differently from persistence in Expo Go.
+Data access and AI-related functionality are organized separately from the main interface logic.
 
 ---
 
-Project Structure
+## 7. Firebase Integration
 
-src/
-├── App.jsx
-├── components/
-├── styles/
-│   └── theme.js
-└── services/
-    ├── local.js
-    └── assistant.js
+Firebase is used to support authentication and cloud data management.
 
-Main Files
+### Firebase Authentication
 
-"src/App.jsx"
+Firebase Authentication provides the identity management layer.
 
-Main application component, responsible for coordinating screens, navigation, and application flows.
+It is responsible for:
 
-"src/components/"
+- User authentication.
+- Authentication sessions.
+- Account identity.
+- Integration with authenticated database operations.
 
-Reusable interface components shared across application screens.
+Authentication and application roles are separate concepts.
 
-"src/styles/theme.js"
+A valid authenticated session does not automatically grant administrator or instructor permissions.
 
-Theme configuration and visual styling definitions.
+### Cloud Firestore
 
-"src/services/local.js"
+Cloud Firestore provides persistent storage for application data.
 
-Local data management, authentication simulation, and AsyncStorage persistence.
+The domain includes:
 
-"src/services/assistant.js"
-
-Local assistant logic and predefined responses.
-
----
-
-Data Persistence
-
-All application changes are stored locally using AsyncStorage.
-
-The local data layer manages:
-
-- Users and profiles.
+- Users.
 - Exercises.
 - Workouts.
-- Workout assignments.
+- Workout-exercise relationships.
 - Workout history.
-- Student-instructor relationships.
+- Schedules.
+- Instructor-student assignments.
 
-Role Relationships
+### Data Relationships
 
-Student-instructor assignments use the following fields:
+The application uses identifiers to associate users and workouts.
 
-Field| Description
-"instructorId"| Identifies the instructor assigned to a student
-"professionalId"| Identifies the instructor responsible for a workout
+| Field | Purpose |
+|---|---|
+| `instructorId` | Identifies the instructor assigned to a student |
+| `professionalId` | Identifies the instructor responsible for a workout |
 
-These relationships determine which records appear in the application interface.
+These relationships support filtering and role-specific access to application data.
 
-Demonstration Permissions
+### CRUD Operations
 
-Student
+The application includes CRUD functionality for:
 
-- Views and logs their own workouts.
-- Accesses their own workout history.
+- User administration.
+- Exercise management.
+- Workout management.
 
-Instructor
-
-- Views assigned students.
-- Creates and manages their own workouts.
-- Selects only assigned students in workout forms.
-
-Administrator
-
-- Manages users and roles.
-- Manages instructor-student assignments.
-- Views global dashboard information.
-
-A confirmation prompt appears before deletion operations.
-
-Security warning: These restrictions are implemented locally and do not constitute secure server-side authorization.
+The available operations depend on the authenticated user's role.
 
 ---
 
-Integrations Not Included
+## 8. Roles and Permissions
 
-The following integrations were intentionally excluded from this prototype.
+Movi60 implements role-based functionality for three types of users.
 
-Firebase Authentication
+| Permission | Student | Instructor | Administrator |
+|---|---|---|---|
+| View personal workouts | Yes | — | — |
+| Record workout execution | Yes | — | — |
+| View personal progress | Yes | — | — |
+| Access AI assistant | Yes | — | — |
+| View assigned students | — | Yes | Yes |
+| Create exercises | — | Yes | — |
+| Edit exercises | — | Yes | — |
+| Delete exercises | — | Yes | — |
+| Create workouts | — | Yes | — |
+| Edit own workouts | — | Yes | — |
+| Delete own workouts | — | Yes | — |
+| Manage users | — | — | Yes |
+| Manage user roles | — | — | Yes |
+| Assign instructors | — | — | Yes |
+| View global metrics | — | — | Yes |
 
-Authentication is simulated using local credentials.
+### Security Model
 
-A production implementation should use Firebase Authentication for secure identity management.
+Role-based navigation limits which features are displayed to each user.
 
-Firebase Firestore
+However, hiding interface elements is not sufficient to secure application data.
 
-Firestore collections are temporarily replaced with React state and AsyncStorage.
+Firestore Security Rules must independently validate access to protected resources.
 
-Gemini / External AI
+The intended security model includes:
 
-The assistant currently uses predefined responses and local exercise information.
+- Authentication validation.
+- Role-based authorization.
+- Workout ownership validation.
+- Student-instructor relationship validation.
+- Restricted administrative operations.
+- Protection against unauthorized data modification.
 
-No external AI service calls are made in this version.
-
-Final Exercise Images
-
-The application retains illustrated placeholders from the original Figma prototype.
-
-Exercise images can be provided through URLs in the CRUD interface when an internet connection is available.
-
----
-
-Future Improvements
-
-Firebase Integration
-
-Replace the local functions in:
-
-"src/services/local.js"
-
-With Firebase Authentication and Firestore operations.
-
-Proposed Firestore Collections
-
-usuarios/
-exercicios/
-treinos/
-treino_exercicios/
-historico/
-agenda/
-
-Security
-
-Implement:
-
-- Firebase Authentication.
-- Firestore Security Rules.
-- Server-side role validation.
-- Secure user data access.
-- Proper authorization for CRUD operations.
-
-AI Integration
-
-Replace the local assistant implementation in:
-
-"src/services/assistant.js"
-
-With a backend-protected AI service.
-
-API credentials should never be exposed directly in the mobile application.
+**Important:** The implementation and deployment of Firestore Security Rules must be verified before using the application with real personal data.
 
 ---
 
-Prototype Limitations
+## 9. Local Storage
 
-This project is intended for academic demonstration purposes only.
+AsyncStorage is used for supported local persistence requirements.
 
-- Authentication is simulated locally.
-- Data is stored on the device.
-- Permissions are enforced at the interface/application level.
-- No production-grade backend security is implemented.
-- Demo credentials are not secure.
-- Data synchronization between devices is unavailable.
+Depending on the application revision, local storage may include:
 
-Do not use sensitive information or personal passwords.
+- Accessibility preferences.
+- Application configuration.
+- Local interface state.
+- Demonstration data.
 
----
+Cloud Firestore is the intended persistent database for shared application records.
 
-Verification
-
-The delivered code was checked using a JavaScript/JSX parser.
-
-Local authentication functions were validated through automated tests.
-
-A real Expo Go build could not be executed in the original verification environment.
-
-Platform-specific compatibility should therefore be tested using Expo Snack or a physical device.
+AsyncStorage must not be treated as a secure replacement for authentication or server-side authorization.
 
 ---
 
-Academic Context
+## 10. Installation and Execution
 
-Project: Movi60
-Course: Mobile Platform Development
-Institution: Universidade de Fortaleza (Unifor)
-Project Type: Academic Extension Project
-Framework: React Native + Expo
-Status: Functional Prototype
+### Requirements
+
+Before running the application, install:
+
+- Node.js compatible with the project's dependencies.
+- npm.
+- Git.
+- Expo Go or a compatible emulator.
+
+The audited SDK 58 revision contained Firebase dependencies requiring Node.js 24.12 or later.
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/MarcosG66/Movi60.git
+```
+
+Enter the project directory:
+
+```bash
+cd Movi60
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+Check Expo dependency compatibility:
+
+```bash
+npx expo install --check
+```
+
+If necessary, align dependencies with the installed Expo SDK:
+
+```bash
+npx expo install --fix
+```
+
+### Configure External Services
+
+The application requires valid configuration for the Firebase project and the AI service used by the installed revision.
+
+Before execution:
+
+1. Configure Firebase Authentication.
+2. Configure Cloud Firestore.
+3. Provide the Firebase project configuration.
+4. Review Firestore Security Rules.
+5. Configure the AI integration.
+6. Verify the required environment variables and service permissions.
+
+Do not commit private API keys, service-account credentials, or other secrets to the repository.
+
+### Start the Application
+
+```bash
+npx expo start
+```
+
+To clear the Metro cache:
+
+```bash
+npx expo start -c
+```
+
+### Android
+
+Install Expo Go on a compatible Android device.
+
+Scan the QR Code displayed by Expo.
+
+### iOS
+
+Use Expo Go on a compatible iPhone or an available iOS simulator.
+
+### Web
+
+Start the web version using:
+
+```bash
+npx expo start --web
+```
+
+**Note:** Some native functionality and external integrations may behave differently between Web, Android, and iOS.
 
 ---
 
-Disclaimer
+## 11. Testing and Verification
 
-Movi60 is an academic prototype developed for educational purposes.
+The project has undergone development-stage verification.
 
-The current implementation demonstrates application navigation, role-based interfaces, local persistence, workout management, accessibility features, and simulated authentication.
+### Audited Revision
 
-It is not intended for production use without implementing secure authentication, database access controls, and backend services.
+The November 14, 2026 revision reported:
+
+- JavaScript and JSX syntax validation.
+- Simulated authentication tests.
+- Mocked Firestore tests.
+- AI service tests using mocks.
+- Fallback behavior verification.
+- Interface control verification.
+
+The audit reported **19 passing automated tests**.
+
+These results apply to the audited revision and do not automatically validate subsequent changes.
+
+### Running Tests
+
+Where the test scripts are included:
+
+```bash
+npm test
+```
+
+Alternatively:
+
+```bash
+node --test tests/*.test.cjs
+```
+
+### Manual Verification
+
+The following scenarios should be checked on the final application:
+
+- Student registration and login.
+- Instructor login.
+- Administrator login.
+- Correct navigation for each role.
+- Student-instructor assignments.
+- Exercise creation, editing, and deletion.
+- Workout creation, editing, and deletion.
+- Workout completion and history.
+- Progress calculation.
+- Accessibility preferences.
+- Firebase data persistence.
+- Firestore permission enforcement.
+- AI assistant responses.
+- AI service error handling.
+- Android and iOS compatibility.
+
+### Known Verification Limitations
+
+Automated tests do not guarantee that all features work correctly on physical devices.
+
+External integrations require additional testing with valid Firebase and AI service configurations.
+
+---
+
+## 12. Known Limitations
+
+Movi60 is currently an academic prototype.
+
+Known limitations and considerations include:
+
+- External services require valid configuration.
+- AI availability depends on network connectivity and service availability.
+- Firebase authorization rules require deployment and verification.
+- Some behavior may differ between mobile and web environments.
+- The application has not undergone a complete production security audit.
+- Performance and accessibility require further testing with real users.
+- Some exercise images may still use prototype placeholders.
+- Data consistency should be reviewed when deleting exercises referenced by multiple workouts.
+
+The application should not be deployed with real sensitive user information until the required security controls have been validated.
+
+---
+
+## 13. Future Improvements
+
+Potential improvements include:
+
+- Expanded accessibility testing with older adults.
+- More comprehensive automated testing.
+- Improved offline support.
+- Push notifications for scheduled activities.
+- Additional workout progress visualizations.
+- More detailed exercise illustrations.
+- Improved AI response handling.
+- Performance optimization.
+- Stronger database consistency validation.
+- Further separation of navigation and screen components.
+- Production deployment and security hardening.
+
+---
+
+## 14. Academic Information
+
+**Project:** Movi60  
+**Institution:** University of Fortaleza (Unifor)  
+**Course:** Computer Science  
+**Subject:** Mobile Platform Development  
+**Project Type:** Academic Extension Project  
+**Year:** 2026  
+**Framework:** React Native + Expo
+
+### Development Team
+
+- Luiz Henrique Lins Bahia Lopes Aguiar
+- Igor Theophilo Lima Maia
+- Henrique José Barbosa Vitalino Carneiro
+- Marcos Gentili Oliveira Carneiro
+
+### Repository
+
+[Movi60 — GitHub](https://github.com/MarcosG66/Movi60)
+
+---
+
+## Disclaimer
+
+Movi60 is an academic application developed for educational and demonstration purposes.
+
+The project aims to improve accessibility and support the organization of physical activities for older adults.
+
+The application and its AI assistant do not provide medical diagnoses or replace qualified fitness and healthcare professionals.
+
+Production use requires appropriate security validation, service configuration, and additional testing.
+
+---
+
+**Movi60 — Making physical activity more accessible, organized, and connected.**
